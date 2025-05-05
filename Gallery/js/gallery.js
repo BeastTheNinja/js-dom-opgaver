@@ -65,8 +65,6 @@ const arrImages = [
     },
 ]
 
-
-
 const displayImages = () => {
     for(let item of arrImages){
         const div = document.createElement('div');
@@ -87,9 +85,34 @@ const displayImages = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const lightBox = document.createElement('div');
-    lightBox.classList.add('lightbox');
-    document.body.appendChild(lightBox);
+    const imgElements = Array.from(document.querySelectorAll('img'))
+
+    const modalDiv = document.createElement('div');
+        modalDiv.classList.add('lightbox');
+        document.body.appendChild(modalDiv);
+    
+    const openModal = index => {
+       const imgClone = imgElements[index].cloneNode()
+       modalDiv.innerHTML = '';
+       modalDiv.appendChild(imgClone);
+       modalDiv.classList.add('active');
+       
+        
+    }
+
+    const closeModal = () => {
+        modalDiv.classList.remove('active');
+        
+    }
+
+
+    imgElements.forEach((img, index) => {
+        img.addEventListener('click', () => openModal(index))
+        
+    })
+    
+    modalDiv.addEventListener('click', () => closeModal())
+
 
 });
 
